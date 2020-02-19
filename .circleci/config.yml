@@ -1,6 +1,6 @@
 version: 2.0
 jobs:
-  checkout code:
+  checkout-code:
     docker:
       - image: gradle:jdk11
     steps:
@@ -28,4 +28,7 @@ workflows:
   version: 2
   two_job_flow:
     jobs:
-      - build
+      - build:
+          requires:
+          - checkout-code
+      - checkout-code
