@@ -24,6 +24,13 @@ jobs:
       - store_artifacts:
           path: app/build/libs
           destination: output
+  dockerize:
+    machine:
+      image: ubuntu-1604:201903-01
+    steps:
+      - attach_workspace:
+          at: .
+      - run: ci/build-docker.sh
 workflows:
   version: 2
   two_job_flow:
@@ -32,3 +39,6 @@ workflows:
           requires:
           - checkout-code
       - checkout-code
+      - dockerize:
+          requires:
+            - build
